@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para mi persona favorita ❤️</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -42,7 +44,7 @@
         }
 
         .btn-romantic {
-            background: #ff007f; /* Color Fiusha Fuerte */
+            background: #ff007f;
             color: #ffffff;
             font-weight: 600;
             font-size: 1.1rem;
@@ -63,14 +65,11 @@
             z-index: 20;
         }
 
-        /* Efecto Hover: Zoom y brillo tenue */
         .btn-romantic:hover {
             transform: scale(1.05);
             box-shadow: 0 0 25px rgba(255, 0, 127, 0.7), inset 0 0 10px rgba(255, 255, 255, 0.4);
             background: #ff1a8c;
         }
-
-        /* Animación "Liquid" al hacer clic */
         .btn-romantic.liquid-active {
             animation: liquidPulse 0.6s cubic-bezier(0.25, 1, 0.5, 1);
             box-shadow: 0 0 45px rgba(255, 0, 127, 1), inset 0 0 20px rgba(255, 255, 255, 0.7);
@@ -86,11 +85,28 @@
             100% { transform: scale(1); border-radius: 20px; }
         }
 
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-20vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
         .particle {
             position: fixed;
             pointer-events: none;
-            z-index: 5000;
+            z-index: 5;
             user-select: none;
+            animation: floatUp linear infinite;
         }
 
         #page-transition {
@@ -108,9 +124,10 @@
 </head>
 <body class="p-4 sm:p-8 relative">
 
+    <div id="particles-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: hidden;"></div>
     <div id="page-transition"></div>
 
-    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="position:fixed; top:0; left:0; z-index:-1; pointer-events:none;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="position:fixed; top:0; left:0; z-index:0; pointer-events:none;">
         <rect width="100%" height="100%" fill="#ffd1dc" />
         <defs>
             <pattern id="topographic-pattern" width="600" height="600" patternUnits="userSpaceOnUse">
@@ -125,7 +142,7 @@
     <main class="glass-panel w-full max-w-lg mx-auto p-8 sm:p-10 flex flex-col items-center text-center relative">
         
         <h1 class="text-3xl sm:text-4xl font-bold mb-8 text-[#800040] leading-tight">
-            Eres una de las personas más importantes de mi vida así que hice esto por ti.
+            Eres una de las personas más importantes de mi vida y te elaboré esta página
         </h1>
 
         <div class="flex flex-col gap-5 w-full">
@@ -160,18 +177,55 @@
             <button onclick="closeTeAmoModal()" class="absolute top-4 right-4 text-[#800040] font-bold text-xl w-8 h-8 rounded-full bg-white/60 flex items-center justify-center hover:bg-white transition">✕</button>
             <div class="text-6xl mb-4 animate-bounce">💖</div>
             <h2 class="text-4xl sm:text-5xl font-extrabold text-[#800040] mb-4 tracking-tight drop-shadow-sm font-serif">
-                ¡Te amo mucho!
+                Te amo mucho!
             </h2>
             <p class="text-base sm:text-lg text-[#800040]/90 font-medium mb-6">
                 Eres lo más bonito de mi vida, hoy, mañana y siempre. 🩷
             </p>
             <button onclick="closeTeAmoModal()" class="bg-[#ff007f] hover:bg-[#ff1a8c] text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105">
-                Cerrar con amor
+                Cerrar el papoi
             </button>
         </div>
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            createFloatingParticles();
+        });
+        function createFloatingParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 20;
+            const elements = ['💖', '💕', '💗', '✨', '🤍', '🩷'];
+
+            for (let i = 0; i < particleCount; i++) {
+                createSingleParticle(container, elements);
+            }
+        }
+
+        function createSingleParticle(container, elements) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            particle.innerText = elements[Math.floor(Math.random() * elements.length)];
+            const size = Math.random() * 1.5 + 1; 
+            particle.style.fontSize = `${size}rem`;
+            
+            particle.style.left = `${Math.random() * 100}vw`;
+            
+            const duration = Math.random() * 15 + 10; 
+            const delay = Math.random() * -20; 
+            
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${delay}s`;
+
+            container.appendChild(particle);
+
+            particle.addEventListener('animationend', () => {
+                particle.remove();
+                createSingleParticle(container, elements);
+            });
+        }
+
         function navigateWithEffect(event, url) {
             event.preventDefault();
             const btn = event.currentTarget;
@@ -201,7 +255,6 @@
                 window.location.href = url;
             }, 800);
         }
-
         function createHeartExplosion(originX, originY) {
             const emojis = ['💖', '❤️', '💕', '💗', '💓'];
             const particleCount = 20 + Math.floor(Math.random() * 15);
@@ -245,11 +298,13 @@
             btn.classList.remove('liquid-active');
             void btn.offsetWidth;
             btn.classList.add('liquid-active');
+
             const rect = btn.getBoundingClientRect();
             const x = rect.left + rect.width / 2;
             const y = rect.top + rect.height / 2;
             
             createMassiveConfettiAndHearts(x, y);
+
             const modal = document.getElementById('te-amo-modal');
             modal.classList.remove('opacity-0', 'pointer-events-none');
             modal.querySelector('div').classList.remove('scale-90');
@@ -265,7 +320,7 @@
 
         function createMassiveConfettiAndHearts(originX, originY) {
             const items = ['💖', '❤️', '💕', '💗', '💓', '✨', '🌸', '🩷', '⭐'];
-            const count = 20;
+            const count = 50;
 
             for (let i = 0; i < count; i++) {
                 const particle = document.createElement('div');
@@ -279,17 +334,11 @@
                 
                 document.body.appendChild(particle);
 
-                const angle = Math.random() * Math.PI * 2; 
-                const velocity = Math.random() * 250 + 100; 
-                const tx = Math.cos(angle) * velocity;
-                const ty = Math.sin(angle) * velocity - 50; 
-                const duration = Math.random() * 800 + 600; 
-
                 const animation = particle.animate([
                     { transform: 'translate(-50%, -50%) scale(0) rotate(0deg)', opacity: 1 },
-                    { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(1.4) rotate(${Math.random() * 360 - 180}deg)`, opacity: 0 }
+                    { transform: `translate(calc(-50% + ${Math.cos(Math.random() * Math.PI * 2) * 250}px), calc(-50% + ${Math.sin(Math.random() * Math.PI * 2) * 250}px)) scale(1.4) rotate(${Math.random() * 360 - 180}deg)`, opacity: 0 }
                 ], {
-                    duration: duration,
+                    duration: Math.random() * 800 + 600,
                     easing: 'cubic-bezier(0, .9, .57, 1)'
                 });
 
