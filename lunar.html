@@ -16,7 +16,7 @@
             --pink-dark: #800040;
             --pink-accent: #ff007f;
             --glass-bg: rgba(255, 255, 255, 0.25);
-            --glass-bg-darker: rgba(180, 20, 100, 0.35); /* Tinte más oscuro para contraste */
+            --glass-bg-darker: rgba(180, 20, 100, 0.35);
             --glass-border: rgba(255, 255, 255, 0.5);
         }
 
@@ -66,7 +66,6 @@
             background: rgba(255, 255, 255, 0.25);
         }
 
-        /* Transición de página */
         #page-transition {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100vh;
@@ -79,7 +78,6 @@
             transform: translateY(-100%);
         }
 
-        /* Partículas del fondo */
         @keyframes floatUpAndSpin {
             0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
             10% { opacity: 0.8; }
@@ -95,7 +93,6 @@
             animation: floatUpAndSpin linear infinite;
         }
 
-        /* Efecto líquido y resplandor para el botón */
         .btn-liquid {
             position: relative;
             overflow: hidden;
@@ -130,7 +127,6 @@
             transform: scale(1);
         }
 
-        /* Explosión de corazones al hacer clic */
         .explosion-heart {
             position: fixed;
             pointer-events: none;
@@ -143,8 +139,6 @@
             0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
             100% { transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(var(--rot)); opacity: 0; }
         }
-
-        /* Fondo de latido */
         @keyframes pulseBackground {
             0% { transform: scale(1); opacity: 0.5; }
             50% { transform: scale(1.05); opacity: 0.8; }
@@ -157,11 +151,7 @@
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen relative py-24 px-4">
-
-    <!-- Transición al cargar -->
     <div id="page-transition"></div>
-
-    <!-- Fondo topográfico SVG -->
     <svg xmlns="http://www.w3.org/2000/svg" width="100vw" height="100vh" style="position:fixed; top:0; left:0; z-index:-2; pointer-events:none;">
         <rect width="100%" height="100%" fill="#ffd1dc" />
         <defs>
@@ -173,9 +163,7 @@
         </defs>
         <rect width="100%" height="100%" fill="url(#topographic-pattern)" class="bg-pattern" />
     </svg>
-
     <div id="particles-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden;"></div>
-
     <nav class="w-full p-6 fixed top-0 z-40 flex justify-start pointer-events-none">
         <a href="index.html" id="btn-regresar" class="btn-liquid backdrop-blur-md inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm pointer-events-auto">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
@@ -184,26 +172,19 @@
     </nav>
 
     <main class="w-full max-w-4xl mx-auto z-10 flex flex-col items-center">
-        
         <div class="glass-darker w-full rounded-[2.5rem] p-8 md:p-12 text-center">
-            
             <h1 class="text-4xl md:text-6xl font-extrabold mb-4 text-high-contrast tracking-tight drop-shadow-2xl">
                 Nuestro Ciclo Lunar
             </h1>
             <p class="text-lg md:text-2xl font-medium mb-10 text-white drop-shadow-md" style="text-shadow: 0 2px 8px rgba(128, 0, 64, 0.8);">
                 Así brillaba el cielo en los días que nacimos.
             </p>
-
             <div class="flex flex-col md:flex-row justify-center gap-8 md:gap-12 w-full">
-                
-                <!-- Tarjeta Luna 1 -->
                 <div class="moon-card flex-1 rounded-3xl p-8 flex flex-col items-center backdrop-blur-sm">
                     <div class="text-7xl md:text-8xl mb-6 drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] animate-[bounce-slow_4s_ease-in-out_infinite]">🌒</div>
                     <div class="text-high-contrast text-2xl md:text-3xl font-bold mb-2">17 de Abril, 2002</div>
                     <div class="text-pink-100 font-medium text-lg tracking-wide uppercase drop-shadow-md">Luna Creciente</div>
                 </div>
-
-                <!-- Tarjeta Luna 2 -->
                 <div class="moon-card flex-1 rounded-3xl p-8 flex flex-col items-center backdrop-blur-sm" style="animation-delay: 1s;">
                     <div class="text-7xl md:text-8xl mb-6 drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] animate-[bounce-slow_4s_ease-in-out_infinite_reverse]">🌔</div>
                     <div class="text-high-contrast text-2xl md:text-3xl font-bold mb-2">26 de Junio, 2007</div>
@@ -218,7 +199,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Eliminar pantalla de carga
+
             setTimeout(() => {
                 document.body.classList.add('loaded');
             }, 100);
@@ -230,7 +211,7 @@
         function createFloatingParticles() {
             const container = document.getElementById('particles-container');
             const particleCount = 25; 
-            const elements = ['✨', '🌙', '⭐', '💫', '💖']; // Añadidas lunas y estrellas
+            const elements = ['✨', '🌙', '⭐', '💫', '💖'];
 
             for (let i = 0; i < particleCount; i++) {
                 createSingleParticle(container, elements);
@@ -267,22 +248,17 @@
                 e.preventDefault();
                 const href = this.getAttribute('href');
                 const rect = this.getBoundingClientRect();
-                
-                // Coordenadas del click o centro del botón
+
                 const x = e.clientX || rect.left + rect.width / 2;
                 const y = e.clientY || rect.top + rect.height / 2;
 
-                // Crear explosión de corazones
                 for(let i = 0; i < 20; i++) {
                     createExplosionHeart(x, y);
                 }
-
-                // Activar transición de salida
                 const transitionEl = document.getElementById('page-transition');
                 transitionEl.style.transition = 'transform 0.5s ease-in';
                 transitionEl.style.transform = 'translateY(0)';
 
-                // Navegar después de la animación
                 setTimeout(() => {
                     window.location.href = href;
                 }, 500);
@@ -293,8 +269,7 @@
             const heart = document.createElement('div');
             heart.classList.add('explosion-heart');
             heart.innerText = ['💖', '✨', '💕'][Math.floor(Math.random() * 3)];
-            
-            // Ángulo y distancia aleatoria
+
             const angle = Math.random() * Math.PI * 2;
             const velocity = 50 + Math.random() * 100;
             const tx = Math.cos(angle) * velocity;
