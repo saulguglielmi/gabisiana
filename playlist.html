@@ -86,7 +86,7 @@
             position: absolute;
             user-select: none;
             pointer-events: none;
-            z-index: 0; /* Detrás del contenido pero sobre el fondo */
+            z-index: 0;
             animation: floatUp linear infinite;
         }
 
@@ -126,8 +126,6 @@
     </nav>
 
     <main class="w-full max-w-2xl mx-auto z-10 flex flex-col items-center">
-        
-        <!-- Textos principales -->
         <div class="text-center mb-8 animate-fade-in-up">
             <h1 class="text-4xl md:text-5xl font-bold mb-3 text-[#800040] drop-shadow-sm tracking-tight">
                 Playlist unicamente para ti
@@ -159,7 +157,7 @@
 
         function createFloatingParticles() {
             const container = document.getElementById('particles-container');
-            const particleCount = 25; // Número de partículas en pantalla
+            const particleCount = 40;
             const elements = ['💖', '💕', '🎵', '🎶', '🎼', '✨', '💗'];
 
             for (let i = 0; i < particleCount; i++) {
@@ -170,30 +168,23 @@
         function createSingleParticle(container, elements) {
             const particle = document.createElement('div');
             particle.classList.add('particle');
-            
-            // Emoji y tamaño aleatorio
             particle.innerText = elements[Math.floor(Math.random() * elements.length)];
-            const size = Math.random() * 1.5 + 1; // entre 1rem y 2.5rem
+            const size = Math.random() * 1.5 + 1; 
             particle.style.fontSize = `${size}rem`;
-            
-            // Opacidad dependiente del elemento (notas musicales más sutiles)
+
             if(['🎵', '🎶', '🎼'].includes(particle.innerText)) {
                 particle.style.color = 'rgba(255, 0, 127, 0.6)';
             }
-            
-            // Posición inicial aleatoria
+
             particle.style.left = `${Math.random() * 100}vw`;
-            
-            // Animación aleatoria
-            const duration = Math.random() * 15 + 10; // entre 10s y 25s
-            const delay = Math.random() * -20; // Iniciar en diferentes puntos de la animación
+
+            const duration = Math.random() * 15 + 10;
+            const delay = Math.random() * -20;
             
             particle.style.animationDuration = `${duration}s`;
             particle.style.animationDelay = `${delay}s`;
 
             container.appendChild(particle);
-
-            // Bucle infinito
             particle.addEventListener('animationend', () => {
                 particle.remove();
                 createSingleParticle(container, elements);
