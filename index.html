@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi persona favorita ❤️</title>
+    
+    <!-- Carga de Tailwind CSS para la estructura responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fuentes de Google: Playfair Display para un título romántico, Montserrat para lectura -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            background-color: #ffd1dc; /* Color base rosa suave de respaldo */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Contenedor tipo "Glassmorphism" (Efecto Cristal) */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(255, 0, 127, 0.15);
+            animation: float 6s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .btn-romantic {
+            background: #ff007f; /* Color Fiusha Fuerte */
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 20px; 
+            border: none;
+            cursor: pointer;
+            position: relative;
+            outline: none;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 0 12px rgba(255, 0, 127, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.2);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            z-index: 20;
+        }
+
+        /* Efecto Hover: Zoom y brillo tenue */
+        .btn-romantic:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.7), inset 0 0 10px rgba(255, 255, 255, 0.4);
+            background: #ff1a8c;
+        }
+
+        /* Animación "Liquid" al hacer clic */
+        .btn-romantic.liquid-active {
+            animation: liquidPulse 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 0 45px rgba(255, 0, 127, 1), inset 0 0 20px rgba(255, 255, 255, 0.7);
+            background: #ff3399;
+        }
+
+        @keyframes liquidPulse {
+            0% { transform: scale(1); border-radius: 20px; }
+            20% { transform: scale(1.1) scaleX(1.15) scaleY(0.85); border-radius: 35px 10px 35px 10px; }
+            40% { transform: scale(0.95) scaleX(0.85) scaleY(1.15); border-radius: 10px 35px 10px 35px; }
+            60% { transform: scale(1.05) scaleX(1.05) scaleY(0.95); border-radius: 25px; }
+            80% { transform: scale(0.98); border-radius: 20px; }
+            100% { transform: scale(1); border-radius: 20px; }
+        }
+
+        /* Partículas generadas por JS */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 5000;
+            user-select: none;
+        }
+
+        /* Overlay para la transición de página */
+        #page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #ffb7c7; /* Sólido rosa */
+            z-index: 99999;
+            pointer-events: none;
+            display: none;
+            /* La transición se manejará con JS para cambiar direcciones */
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8 relative">
+
+    <!-- Capa que cubre la pantalla para la transición -->
+    <div id="page-transition"></div>
+
+    <!-- Fondo Topográfico SVG (Rosa base, Líneas Fiusha) -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="position:fixed; top:0; left:0; z-index:-1; pointer-events:none;">
+        <rect width="100%" height="100%" fill="#ffd1dc" />
+        <defs>
+            <pattern id="topographic-pattern" width="600" height="600" patternUnits="userSpaceOnUse">
+                <!-- Líneas primarias -->
+                <path d="M0 300 C 150 150, 450 450, 600 300 M0 150 C 150 0, 450 300, 600 150 M0 450 C 150 300, 450 600, 600 450" fill="none" stroke="#ff007f" stroke-width="2" opacity="0.45"/>
+                <!-- Líneas secundarias e irregulares -->
+                <path d="M0 375 C 225 180, 375 570, 600 375 M0 225 C 225 30, 375 420, 600 225 M0 525 C 225 330, 375 720, 600 525" fill="none" stroke="#ff007f" stroke-width="1.2" opacity="0.35"/>
+                <path d="M0 75 C 300 270, 300 -30, 600 75 M0 225 C 300 420, 300 120, 600 225 M0 -75 C 300 120, 300 -180, 600 -75" fill="none" stroke="#ff007f" stroke-width="1.8" opacity="0.25"/>
+                <!-- Curvas circulares simulando elevaciones (montículos) -->
+                <path d="M 150 150 C 200 100, 250 200, 200 250 C 150 300, 100 200, 150 150 Z" fill="none" stroke="#ff007f" stroke-width="1.5" opacity="0.35"/>
+                <path d="M 450 450 C 500 400, 550 500, 500 550 C 450 600, 400 500, 450 450 Z" fill="none" stroke="#ff007f" stroke-width="1" opacity="0.3"/>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#topographic-pattern)" />
+    </svg>
+
+    <main class="glass-panel w-full max-w-lg mx-auto p-8 sm:p-10 flex flex-col items-center text-center relative">
+        
+        <!-- Título Romántico solicitado -->
+        <h1 class="text-3xl sm:text-4xl font-bold mb-8 text-[#800040] leading-tight">
+            Eres una de las personas más importantes de mi vida y te elaboré esta página
+        </h1>
+
+        <!-- Menú de Botones Vinculados a sus respectivos .html -->
+        <div class="flex flex-col gap-5 w-full">
+            <button class="btn-romantic" onclick="navigateWithEffect(event, 'porque.html')">
+                <span class="text-2xl drop-shadow-md">❓</span> 
+                <span>Porque se elaboro esta pagina</span>
+            </button>
+
+            <button class="btn-romantic" onclick="navigateWithEffect(event, 'playlist.html')">
+                <span class="text-2xl drop-shadow-md">🎵</span> 
+                <span>playlist</span>
+            </button>
+
+            <button class="btn-romantic" onclick="navigateWithEffect(event, 'album.html')">
+                <span class="text-2xl drop-shadow-md">📸</span> 
+                <span>Album de fotos</span>
+            </button>
+
+            <button class="btn-romantic" onclick="navigateWithEffect(event, 'lunar.html')">
+                <span class="text-2xl drop-shadow-md">🌑</span> 
+                <span>Ciclo lunar</span>
+            </button>
+
+            <button class="btn-romantic" onclick="navigateWithEffect(event, 'index.html')">
+                <span class="text-2xl drop-shadow-md">❤️</span> 
+                <span>Te amo</span>
+            </button>
+        </div>
+    </main>
+
+    <script>
+        /**
+         * Maneja el evento de clic en los botones.
+         * Genera corazones, anima el botón, desliza la pantalla rosa y luego redirige.
+         */
+        function navigateWithEffect(event, url) {
+            // Evitamos acciones por defecto
+            event.preventDefault();
+
+            const btn = event.currentTarget;
+            
+            // 1. Animación 'liquid' del botón
+            btn.classList.remove('liquid-active');
+            void btn.offsetWidth; // Force reflow
+            btn.classList.add('liquid-active');
+
+            // 2. Disparar la explosión de corazones
+            createHeartExplosion(event.clientX, event.clientY);
+
+            // 3. Activar la transición sólida rosa
+            triggerTransitionOverlay(url);
+        }
+
+        /**
+         * Muestra una capa rosa sólida que se desliza aleatoriamente y redirige
+         */
+        function triggerTransitionOverlay(url) {
+            const overlay = document.getElementById('page-transition');
+            
+            // Hacer visible el contenedor
+            overlay.style.display = 'block';
+            
+            // Decidir aleatoriamente de qué lado entra (true = izquierda, false = derecha)
+            const slideFromLeft = Math.random() > 0.5;
+            
+            // Preparar la posición inicial fuera de la pantalla
+            overlay.style.transition = 'none';
+            overlay.style.transform = slideFromLeft ? 'translateX(-100%)' : 'translateX(100%)';
+            
+            // Forzar reflow para que aplique la posición inicial sin animar
+            void overlay.offsetWidth;
+            
+            // Activar la animación para cubrir la pantalla
+            // Toma 600ms cubrir la pantalla (cubic-bezier para suavidad)
+            overlay.style.transition = 'transform 600ms cubic-bezier(0.4, 0, 0.2, 1)';
+            overlay.style.transform = 'translateX(0)';
+
+            // 4. Redirigir a la URL destino tras 800 milisegundos
+            setTimeout(() => {
+                window.location.href = url;
+            }, 800);
+        }
+
+        /**
+         * Genera una explosión radial de emojis de corazón utilizando Web Animations API
+         */
+        function createHeartExplosion(originX, originY) {
+            const emojis = ['💖', '❤️', '💕', '💗', '💓'];
+            const particleCount = 20 + Math.floor(Math.random() * 15); // 20-35 corazones
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                const size = (Math.random() * 1.5 + 1); 
+                particle.style.fontSize = `${size}rem`;
+                
+                // Centrar partículas en el clic
+                particle.style.left = `${originX}px`;
+                particle.style.top = `${originY}px`;
+                
+                document.body.appendChild(particle);
+
+                const angle = Math.random() * Math.PI * 2; 
+                const velocity = Math.random() * 150 + 80; 
+                
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity - 30; 
+                
+                const duration = Math.random() * 600 + 400; 
+
+                const animation = particle.animate([
+                    { transform: 'translate(-50%, -50%) scale(0) rotate(0deg)', opacity: 1 },
+                    { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(1.2) rotate(${Math.random() * 90 - 45}deg)`, opacity: 0 }
+                ], {
+                    duration: duration,
+                    easing: 'cubic-bezier(0, .9, .57, 1)'
+                });
+
+                animation.onfinish = () => {
+                    particle.remove();
+                };
+            }
+        }
+    </script>
+</body>
+</html>

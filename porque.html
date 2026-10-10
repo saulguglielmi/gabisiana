@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Por qué la creación de la página?</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --pink-base: #ffd1dc;
+            --pink-dark: #800040;
+            --pink-accent: #ff007f;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: var(--pink-base);
+            color: var(--pink-dark);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #ffe6f0; }
+        ::-webkit-scrollbar-thumb {
+            background-color: #ff66b2;
+            border-radius: 10px;
+            border: 2px solid #ffe6f0;
+        }
+        ::-webkit-scrollbar-thumb:hover { background-color: var(--pink-accent); }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(128, 0, 64, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(255, 0, 127, 0.15);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .washi-tape {
+            background: rgba(255, 0, 127, 0.25);
+            border-left: 2px dashed rgba(255, 255, 255, 0.6);
+            border-right: 2px dashed rgba(255, 255, 255, 0.6);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .btn-liquid {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            color: #800040;
+            transition: all 0.3s ease;
+        }
+
+        .btn-liquid:hover {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+            transform: translateX(-3px);
+            color: var(--pink-accent);
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-20vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        .particle {
+            position: absolute;
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes pulseBackground {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+        .bg-pattern {
+            animation: pulseBackground 20s ease-in-out infinite;
+            transform-origin: center center;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center min-h-screen relative py-24 px-4 sm:px-6">
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="100vw" height="100vh" style="position:fixed; top:0; left:0; z-index:-2; pointer-events:none;">
+        <rect width="100%" height="100%" fill="#ffd1dc" />
+        <defs>
+            <pattern id="topographic-pattern" width="600" height="600" patternUnits="userSpaceOnUse">
+                <path d="M0 300 C 150 150, 450 450, 600 300 M0 150 C 150 0, 450 300, 600 150 M0 450 C 150 300, 450 600, 600 450" fill="none" stroke="#ff007f" stroke-width="1.5" opacity="0.3"/>
+                <path d="M0 375 C 225 180, 375 570, 600 375 M0 225 C 225 30, 375 420, 600 225 M0 525 C 225 330, 375 720, 600 525" fill="none" stroke="#ff007f" stroke-width="1" opacity="0.2"/>
+                <path d="M0 75 C 300 270, 300 -30, 600 75 M0 225 C 300 420, 300 120, 600 225 M0 -75 C 300 120, 300 -180, 600 -75" fill="none" stroke="#ff007f" stroke-width="1.2" opacity="0.15"/>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#topographic-pattern)" class="bg-pattern" />
+    </svg>
+
+    <div id="particles-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden;"></div>
+
+    <!-- Barra superior con botón regresar -->
+    <nav class="w-full max-w-2xl px-4 fixed top-4 z-40 flex justify-start">
+        <a href="index.html" class="btn-liquid backdrop-blur-md inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium text-sm shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Regresar al menú
+        </a>
+    </nav>
+
+    <main class="w-full max-w-2xl mx-auto z-10 flex flex-col items-center">
+        
+        <!-- Bloque flotante de Spotify Arriba -->
+        <div class="glass-card w-full rounded-2xl p-3 mb-8 shadow-lg">
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/56dvEv8PIWFuc5vJQLPM0L?utm_source=generator&theme=0&si=e8271da980134c33" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+
+        <!-- Título y Subtítulo -->
+        <div class="text-center mb-10">
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-[#800040] mb-4 tracking-tight drop-shadow-sm">
+                ¿Por qué la creación de la página?
+            </h1>
+            <div class="inline-flex flex-col items-center px-6 py-3 rounded-2xl bg-white/40 backdrop-blur-md border border-white/60 shadow-sm">
+                <p class="text-base sm:text-lg text-[#800040] font-medium italic">
+                    Básicamente porque te amo y porque creo que nací para conocerte.
+                </p>
+                <span class="text-xs tracking-wider uppercase text-[#800040]/60 font-semibold mt-1">
+                    - Kaworu Nagisa
+                </span>
+            </div>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#800040] mb-6 tracking-wide">
+            10 razones que amo de ti
+        </h2>
+
+        <!-- Contenedor de las 10 razones -->
+        <div class="w-full flex flex-col gap-5">
+            
+            <!-- 1 -->
+            <div class="glass-card relative flex items-center p-4 sm:p-5 rounded-3xl">
+                <div class="washi-tape absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-5 rotate-[2deg] rounded-sm"></div>
+                <div class="random-heart-icon w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center bg-white/80 rounded-full shadow-sm text-2xl border border-white/50"></div>
+                <div class="flex-grow px-4 sm:px-6 text-[#800040] font-medium text-sm sm:text-base">
+                    El cómo te ríes de cualquier ocurrencia y llenas todo de luz.
+                </div>
+                <div class="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center text-white font-bold text-sm">
+                    <svg class="absolute inset-0 w-full h-full text-[#c83264] fill-current drop-shadow-sm" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span class="relative z-10 mt-[-2px]">1</span>
+                </div>
+            </div>
+
+            <!-- 2 -->
+            <div class="glass-card relative flex items-center p-4 sm:p-5 rounded-3xl">
+                <div class="washi-tape absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-5 rotate-[-2deg] rounded-sm"></div>
+                <div class="random-heart-icon w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center bg-white/80 rounded-full shadow-sm text-2xl border border-white/50"></div>
+                <div class="flex-grow px-4 sm:px-6 text-[#800040] font-medium text-sm sm:text-base">
+                    Cómo cuentas las cosas con tanta pasión y detalle.
+                </div>
+                <div class="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center text-white font-bold text-sm">
+                    <svg class="absolute inset-0 w-full h-full text-[#c83264] fill-current drop-shadow-sm" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span class="relative z-10 mt-[-2px]">2</span>
+                </div>
+            </div>
+
+            <!-- 3 -->
+            <div class="glass-card relative flex items-center p-4 sm:p-5 rounded-3xl">
+                <div class="washi-tape absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-5 rotate-[3deg] rounded-sm"></div>
+                <div class="random-heart-icon w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center bg-white/80 rounded-full shadow-sm text-2xl border border-white/50"></div>
+                <div class="flex-grow px-4 sm:px-6 text-[#800040] font-medium text-sm sm:text-base">
+                    El cómo te disocias contando las cosas y te pierdes en tus pensamientos.
+                </div>
+                <div class="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center text-white font-bold text-sm">
+                    <svg class="absolute inset-0 w-full h-full text-[#c83264] fill-current drop-shadow-sm" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span class="relative z-10 mt-[-2px]">3</span>
+                </div>
+            </div>
+
+            <!-- 4 -->
+            <div class="glass-card relative flex items-center p-4 sm:p-5 rounded-3xl">
+                <div class="washi-tape absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-5 rotate-[-1deg] rounded-sm"></div>
+                <div class="random-heart-icon w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center bg-white/80 rounded-full shadow-sm text-2xl border border-white/50"></div>
+                <div class="flex-grow px-4 sm:px-6 text-[#800040] font-medium text-sm sm:text-base">
+                    Tu físico, porque me encantas de pies a cabeza.
+                </div>
+                <div class="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center text-white font-bold text-sm">
+                    <svg class="absolute inset-0 w-full h-full text-[#c83264] fill-current drop-shadow-sm" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span class="relative z-10 mt-[-2px]">4</span>
+                </div>
+            </div>
+
+            <!-- 5 -->
+            <div class="glass-card relative flex items-center p-4 sm:p-5 rounded-3xl">
+                <div class="washi-tape absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-5 rotate-[2deg] rounded-sm"></div>
+                <div class="random-heart-icon w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center bg-white/80 rounded-full shadow-sm text-2xl border border-white/50"></div>
+                <div class="flex-grow px-4 sm:px-6 text-[#800040] font-medium text-sm sm:text-base">
+                    Tu mente brillante y la forma en que ves el mundo.
+                </div>
+                <div class="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center text-white font-bold text-sm">
+                    <svg class="absolute inset-0 w-full h-full text-[#c83264] fill-current drop-shadow-sm" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span class="relative z-10 mt-[-2px]">5</span>
+                </div>
+            </div>
+
+            <!-- 6 -->
+            <div class="glass-card relative flex items-center p-4 sm:p-5 rounded-3xl">
+                <div class="washi-tape absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-5 rotate-[-3deg] rounded-sm"></div>
+                <div class="random-heart-icon w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center bg-white/80 rounded-full shadow-sm text-2xl border border-white/50"></div>
+                <div class="flex-grow px-4 sm:px-6 text-[#800040] font-medium text-sm sm:text-base">
+                    Tu forma de ser, tan auténtica y única conmigo.
+                </div>
+                <div class="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center text-white font-bold text-sm">
+                    <svg class="absolute inset-0 w-full h-full text-[#c83264] fill-current drop-shadow-sm" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span class="relative z-10 mt-[-2px]">6</span>
+                </div>
+            </div>
+
+            <!-- 7 -->
+            <div class="glass-card relative flex items-center p-4 sm:p-5 rounded-3xl">
+                <div class="washi-tape absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-5 rotate-[1deg] rounded-sm"></div>
+                <div class="random-heart-icon w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center bg-white/80 rounded-full shadow-sm text-2xl border border-white/50"></div>
+                <div class="flex-grow px-4 sm:px-6 text-[#800040] font-medium text-sm sm:text-base">
+                    Lo loca que estás <span style="opacity: 0.55; font-size: 0.85em;">por mí</span>.
+                </div>
+                <div class="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center text-white font-bold text-sm">
+                    <svg class="absolute inset-0 w-full h-full text-[#c83264] fill-current drop-shadow-sm" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span class="relative z-10 mt-[-2px]">7</span>
+                </div>
+            </div>
+
+            <!-- 8 -->
+            <div class="glass-card relative flex items-center p-4 sm:p-5 rounded-3xl">
+                <div class="washi-tape absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-5 rotate-[-2deg] rounded-sm"></div>
+                <div class="random-heart-icon w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center bg-white/80 rounded-full shadow-sm text-2xl border border-white/50"></div>
+                <div class="flex-grow px-4 sm:px-6 text-[#800040] font-medium text-sm sm:text-base">
+                    Por mis niñas muejejeje, que me llenan de ternura y alegría.
+                </div>
+                <div class="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center text-white font-bold text-sm">
+                    <svg class="absolute inset-0 w-full h-full text-[#c83264] fill-current drop-shadow-sm" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span class="relative z-10 mt-[-2px]">8</span>
+                </div>
+            </div>
+
+            <!-- 9 -->
+            <div class="glass-card relative flex items-center p-4 sm:p-5 rounded-3xl">
+                <div class="washi-tape absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-5 rotate-[3deg] rounded-sm"></div>
+                <div class="random-heart-icon w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center bg-white/80 rounded-full shadow-sm text-2xl border border-white/50"></div>
+                <div class="flex-grow px-4 sm:px-6 text-[#800040] font-medium text-sm sm:text-base">
+                    Que regreses a mí, porque siempre terminamos encontrándonos.
+                </div>
+                <div class="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center text-white font-bold text-sm">
+                    <svg class="absolute inset-0 w-full h-full text-[#c83264] fill-current drop-shadow-sm" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span class="relative z-10 mt-[-2px]">9</span>
+                </div>
+            </div>
+
+            <!-- 10 -->
+            <div class="glass-card relative flex items-center p-4 sm:p-5 rounded-3xl">
+                <div class="washi-tape absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-5 rotate-[-1deg] rounded-sm"></div>
+                <div class="random-heart-icon w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center bg-white/80 rounded-full shadow-sm text-2xl border border-white/50"></div>
+                <div class="flex-grow px-4 sm:px-6 text-[#800040] font-medium text-sm sm:text-base">
+                    Que yo sea lo que más amas <span style="opacity: 0.55; font-size: 0.85em;">supuestamente</span>.
+                </div>
+                <div class="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center text-white font-bold text-sm">
+                    <svg class="absolute inset-0 w-full h-full text-[#c83264] fill-current drop-shadow-sm" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span class="relative z-10 mt-[-2px]">10</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            assignRandomEmojis();
+            createFloatingParticles();
+        });
+
+        function assignRandomEmojis() {
+            const heartEmojis = ['❤️', '💖', '💕', '💗', '💓', '💞', '💘', '🤍', '🩷'];
+            const iconBoxes = document.querySelectorAll('.random-heart-icon');
+            
+            iconBoxes.forEach(box => {
+                const randomEmoji = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                box.innerText = randomEmoji;
+            });
+        }
+
+        function createFloatingParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 25; 
+            const elements = ['❤️', '💖', '💕', '💗', '💓', '💞', '💘', '🤍', '🩷']; 
+
+            for (let i = 0; i < particleCount; i++) {
+                createSingleParticle(container, elements);
+            }
+        }
+
+        function createSingleParticle(container, elements) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            particle.innerText = elements[Math.floor(Math.random() * elements.length)];
+            const size = Math.random() * 1.5 + 0.8; 
+            particle.style.fontSize = `${size}rem`;
+            
+            particle.style.left = `${Math.random() * 100}vw`;
+            
+            const duration = Math.random() * 15 + 10; 
+            const delay = Math.random() * -20; 
+            
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${delay}s`;
+
+            container.appendChild(particle);
+
+            particle.addEventListener('animationend', () => {
+                particle.remove();
+                createSingleParticle(container, elements);
+            });
+        }
+    </script>
+</body>
+</html>

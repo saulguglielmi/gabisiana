@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Álbum de Fotos</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --pink-base: #ffd1dc;
+            --pink-dark: #800040;
+            --pink-accent: #ff007f;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.6);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: var(--pink-base);
+            color: var(--pink-dark);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffe6f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #ff66b2;
+            border-radius: 10px;
+            border: 2px solid #ffe6f0;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: var(--pink-accent);
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(255, 0, 127, 0.1);
+        }
+
+        .btn-back {
+            transition: all 0.3s ease;
+            color: #b30059;
+            text-decoration: none;
+        }
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.2);
+            transform: translateX(-3px);
+            color: var(--pink-accent);
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-20vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .particle {
+            position: absolute;
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes pulseBackground {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .bg-pattern {
+            animation: pulseBackground 20s ease-in-out infinite;
+            transform-origin: center center;
+        }
+        
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(-5%); }
+            50% { transform: translateY(5%); }
+        }
+        .animate-bounce-slow {
+            animation: bounce-slow 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen relative py-20 px-4">
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="100vw" height="100vh" style="position:fixed; top:0; left:0; z-index:-2; pointer-events:none;">
+        <rect width="100%" height="100%" fill="#ffd1dc" />
+        <defs>
+            <pattern id="topographic-pattern" width="600" height="600" patternUnits="userSpaceOnUse">
+                <path d="M0 300 C 150 150, 450 450, 600 300 M0 150 C 150 0, 450 300, 600 150 M0 450 C 150 300, 450 600, 600 450" fill="none" stroke="#ff007f" stroke-width="1.5" opacity="0.3"/>
+                <path d="M0 375 C 225 180, 375 570, 600 375 M0 225 C 225 30, 375 420, 600 225 M0 525 C 225 330, 375 720, 600 525" fill="none" stroke="#ff007f" stroke-width="1" opacity="0.2"/>
+                <path d="M0 75 C 300 270, 300 -30, 600 75 M0 225 C 300 420, 300 120, 600 225 M0 -75 C 300 120, 300 -180, 600 -75" fill="none" stroke="#ff007f" stroke-width="1.2" opacity="0.15"/>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#topographic-pattern)" class="bg-pattern" />
+    </svg>
+
+    <div id="particles-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden;"></div>
+
+    <nav class="w-full p-4 fixed top-0 z-40 pointer-events-none">
+        <a href="index.html" class="glass btn-back inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium text-sm pointer-events-auto w-max">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Regresar al menú
+        </a>
+    </nav>
+
+    <main class="w-full max-w-xl mx-auto z-10 flex flex-col items-center justify-center h-full flex-grow">
+        
+        <div class="glass w-full rounded-[2rem] p-8 md:p-14 text-center shadow-2xl transition-transform duration-500 hover:scale-[1.02] animate-bounce-slow">
+            
+            <h1 class="text-3xl md:text-5xl font-bold mb-6 text-[#800040] drop-shadow-sm tracking-tight">
+                Álbum de Fotos
+            </h1>
+            
+            <div class="w-16 h-1 bg-[#ff007f] rounded-full mx-auto mb-8 opacity-50"></div>
+
+            <p class="text-xl md:text-3xl text-[#b30059] font-medium leading-relaxed">
+                En construcción porque no hay fotos XD
+            </p>
+
+            <div class="mt-8 text-4xl md:text-5xl flex justify-center gap-4">
+                <span>🚧</span>
+                <span>🛠️</span>
+                <span>🩷</span>
+            </div>
+            
+        </div>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            createFloatingParticles();
+        });
+
+        function createFloatingParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 20; // Número de partículas en pantalla
+            const elements = ['🛠️', '🚧']; // Mezclamos corazones y construcción
+
+            for (let i = 0; i < particleCount; i++) {
+                createSingleParticle(container, elements);
+            }
+        }
+
+        function createSingleParticle(container, elements) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Emoji y tamaño aleatorio
+            particle.innerText = elements[Math.floor(Math.random() * elements.length)];
+            const size = Math.random() * 1.5 + 1; // entre 1rem y 2.5rem
+            particle.style.fontSize = `${size}rem`;
+            
+            // Posición inicial aleatoria
+            particle.style.left = `${Math.random() * 100}vw`;
+            
+            // Animación aleatoria
+            const duration = Math.random() * 15 + 10; // entre 10s y 25s
+            const delay = Math.random() * -20; // Iniciar en diferentes puntos de la animación
+            
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${delay}s`;
+
+            container.appendChild(particle);
+
+            // Bucle infinito
+            particle.addEventListener('animationend', () => {
+                particle.remove();
+                createSingleParticle(container, elements);
+            });
+        }
+    </script>
+</body>
+</html>
