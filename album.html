@@ -164,8 +164,8 @@
 
         function createFloatingParticles() {
             const container = document.getElementById('particles-container');
-            const particleCount = 20; // Número de partículas en pantalla
-            const elements = ['🛠️', '🚧']; // Mezclamos corazones y construcción
+            const particleCount = 20; 
+            const elements = ['🛠️', '🚧']; 
 
             for (let i = 0; i < particleCount; i++) {
                 createSingleParticle(container, elements);
@@ -176,24 +176,20 @@
             const particle = document.createElement('div');
             particle.classList.add('particle');
             
-            // Emoji y tamaño aleatorio
             particle.innerText = elements[Math.floor(Math.random() * elements.length)];
-            const size = Math.random() * 1.5 + 1; // entre 1rem y 2.5rem
+            const size = Math.random() * 1.5 + 1; 
             particle.style.fontSize = `${size}rem`;
-            
-            // Posición inicial aleatoria
+
             particle.style.left = `${Math.random() * 100}vw`;
-            
-            // Animación aleatoria
-            const duration = Math.random() * 15 + 10; // entre 10s y 25s
-            const delay = Math.random() * -20; // Iniciar en diferentes puntos de la animación
+
+            const duration = Math.random() * 15 + 10; 
+            const delay = Math.random() * -20;
             
             particle.style.animationDuration = `${duration}s`;
             particle.style.animationDelay = `${delay}s`;
 
             container.appendChild(particle);
 
-            // Bucle infinito
             particle.addEventListener('animationend', () => {
                 particle.remove();
                 createSingleParticle(container, elements);
